@@ -13,8 +13,10 @@ public class MatrizInvalidaException extends Exception {
     
     private final Matriz m;
 
-    MatrizInvalidaException(Matriz aThis) {
-        throw new 
+    MatrizInvalidaException(Matriz m) {
+        super(String.format(
+        "Matriz %dx%d não pode ser criada",
+                m.getMatriz().length, m.getMatriz()[0].length))
     }
     
     
