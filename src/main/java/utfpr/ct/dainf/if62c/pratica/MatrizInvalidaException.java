@@ -9,6 +9,20 @@ package utfpr.ct.dainf.if62c.pratica;
  *
  * @author a1658930
  */
-public class MatrizInvalidaException {
+public class MatrizInvalidaException extends Exception {
     
+    private final Matriz m;
+
+    MatrizInvalidaException(Matriz aThis) {
+        throw new 
+    }
+    
+    
+    public int getNumLinhas(int numLinhas) {
+        return numLinhas;
+    }
+    
+    public int getNumColunas (int numColunas) {
+        return numColunas;
+    }
 }
