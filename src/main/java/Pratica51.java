@@ -1,4 +1,9 @@
 import utfpr.ct.dainf.if62c.pratica.Matriz;
+import utfpr.ct.dainf.if62c.pratica.MatrizInvalidaException;
+import utfpr.ct.dainf.if62c.pratica.MatrizesIncompativeisException;
+import utfpr.ct.dainf.if62c.pratica.ProdMatrizesIncompativeisException;
+import utfpr.ct.dainf.if62c.pratica.SomaMatrizesIncompativeisException;
+
 
 /**
  * IF62C Fundamentos de Programação 2
@@ -7,42 +12,65 @@ import utfpr.ct.dainf.if62c.pratica.Matriz;
  */
 public class Pratica51 {
 
-    public static void main(String[] args) {
-        
-        Matriz mat1 = new Matriz(3, 3);
-        Matriz mat2 = new Matriz(3, 3);
+    public static void main(String[] args){
+        try
+        {
+        Matriz orig = new Matriz(3, 3);
+        Matriz orig2 = new Matriz(3, 3);
+        Matriz orig3 = new Matriz(5, 0);
+
        
-        double[][] m1 = mat1.getMatriz();
-        double[][] m2 = mat2.getMatriz();
+        double[][] m = orig.getMatriz();
+        double[][] m2 = orig2.getMatriz();
+        double[][] m3 = orig3.getMatriz();
        
-        m1[0][0] = 6.0;
-        m1[0][1] = 6.0;
-        m1[0][2] = 6.0;
-        m1[1][0] = 6.0;
-        m1[1][1] = 6.0;
-        m1[1][2] = 6.0;
-        m1[2][0] = 6.0;
-        m1[2][1] = 6.0;
-        m1[2][2] = 6.0;
-       
-        m2[0][0] = 3.0;
-        m2[0][1] = 3.0;
-        m2[0][2] = 3.0;
-        m2[1][0] = 3.0;
-        m2[1][1] = 3.0;
-        m2[1][2] = 3.0;
-        m2[2][0] = 3.0;
-        m2[2][1] = 3.0;
-        m2[2][2] = 3.0;
+        m[0][0] = 1.0;
+        m[0][1] = 1.0;
+        m[0][2] = 1.0;
+        m[1][0] = 1.0;
+        m[1][1] = 1.0;
+        m[1][2] = 1.0;
+        m[2][0] = 1.0;
+        m[2][1] = 1.0;
+        m[2][2] = 1.0;
         
-        System.out.println("Matriz original 1 : " + mat1);
-        System.out.println("Matriz original 2 : " + mat2);
+        m2[0][0] = 1.0;
+        m2[0][1] = 1.0;
+        m2[0][2] = 1.0;
+        m2[1][0] = 1.0;
+        m2[1][1] = 1.0;
+        m2[1][2] = 1.0;
+        m2[2][0] = 1.0;
+        m2[2][1] = 1.0;
+        m2[2][2] = 1.0;
         
-        Matriz S = mat1.soma(mat2);
-        System.out.println("A soma é: " + S);
+        m3[0][0] = 1.0;
+        m3[0][1] = 1.0;
+        m3[1][0] = 1.0;
+        m3[1][1] = 1.0;
+        m3[2][0] = 1.0;
+        m3[2][1] = 1.0;
         
-        Matriz P = mat1.prod(mat2);
-        System.out.println("O produto é:" + P);
-      
+        System.out.println("Matriz original 1 : " + orig);
+        System.out.println("Matriz original 2 : " + orig2);
+        System.out.println("Matriz original 3 : " + orig3);
+        
+        Matriz Soma = orig.soma(orig2);
+        System.out.println("A soma é: " + Soma);
+        
+        Matriz Produto = orig.prod(orig2);
+        System.out.println("O produto é:" + Produto);
+           
+        Matriz Soma2 = orig.soma(orig3);
+        System.out.println("A soma é: " + Soma2);
+        
+        Matriz Produto2 = orig.prod(orig3);
+        System.out.println("O produto é:" + Produto2);
+        
+        } catch (MatrizInvalidaException | ProdMatrizesIncompativeisException | SomaMatrizesIncompativeisException e) 
+        {
+            System.out.println(e.getLocalizedMessage());
+        }
+
     }
 }

@@ -3,8 +3,7 @@ package utfpr.ct.dainf.if62c.pratica;
 /**
  * Representa uma matriz de valores {@code double}.
  * @author Wilson Horstmeyer Bogadao <wilson@utfpr.edu.br>
- */
-public class Matriz {
+ */public class Matriz {
     
     // a matriz representada por esta classe
     private final double[][] mat;
@@ -13,11 +12,13 @@ public class Matriz {
      * Construtor que aloca a matriz.
      * @param m O número de linhas da matriz.
      * @param n O número de colunas da matriz.
+     * @throws utfpr.ct.dainf.if62c.pratica.MatrizInvalidaException
      */
-    public Matriz(int m, int n) {
-        if (m<=0 || n<=0){
-            throw new MatrizInvalidaException(this);
-        }
+    public Matriz(int m, int n) throws MatrizInvalidaException {
+        if(m<=0 || n<=0)
+            throw new MatrizInvalidaException(m, n);
+        
+        
         mat = new double[m][n];
     }
     
@@ -32,40 +33,59 @@ public class Matriz {
     /**
      * Retorna a matriz transposta.
      * @return A matriz transposta.
+     * @throws utfpr.ct.dainf.if62c.pratica.MatrizInvalidaException
      */
-    public Matriz getTransposta() {
+    public Matriz getTransposta() throws MatrizInvalidaException {
+        try{
         Matriz t = new Matriz(mat[0].length, mat.length);
+             
         for (int i = 0; i < mat.length; i++) {
             for (int j = 0; j < mat[i].length; j++) {
                 t.mat[j][i] = mat[i][j];
             }
         }
         return t;
+        } catch(MatrizInvalidaException e){
+            System.err.println(e);
+            return null;
+        }
     }
     
     /**
      * Retorna a soma desta matriz com a matriz recebida como argumento.
      * @param m A matriz a ser somada
      * @return A soma das matrizes
+     * @throws utfpr.ct.dainf.if62c.pratica.MatrizInvalidaException
      */
-    public Matriz soma(Matriz m) {
-        
-        Matriz res = new Matriz (mat.length, mat[0].length);
-        for (int i = 0; i < mat.length; i++) {
-            for (int j = 0; j < mat[i].length; j++) {
-                res.mat[i][j] = m.mat[i][j] + mat[i][j];
-                
-            }
+    public Matriz soma(Matriz m) throws SomaMatrizesIncompativeisException, MatrizInvalidaException {
+            
+       if(m.getMatriz().length != mat.length || m.getMatriz()[0].length != mat[0].length)
+             throw new SomaMatrizesIncompativeisException(this, m);
+             
+       int i,j;
+       
+       Matriz Soma = new Matriz(mat.length, mat[0].length);
+       
+        for (i = 0; i < mat.length ; i++)
+            for(j=0; j< mat[0].length; j++) {
+                Soma.mat[i][j] = mat[i][j] + m.mat[i][j];
+            
         }
-        return res;
+        
+        return Soma;
     }
 
     /**
-     * Retorna o produto desta matriz com a matriz recebida como argumento.
+     * Retorna o Produto desta matriz com a matriz recebida como argumento.
      * @param m A matriz a ser multiplicada
-     * @return O produto das matrizes
+     * @return O Produto das matrizes
+     * @throws utfpr.ct.dainf.if62c.pratica.MatrizInvalidaException
      */
-    public Matriz prod(Matriz m) {
+    public Matriz prod(Matriz m) throws MatrizInvalidaException {
+        
+       if(m.getMatriz().length != mat.length || m.getMatriz()[0].length != mat[0].length)
+            throw new ProdMatrizesIncompativeisException(this, m);
+       
         int i, j, k;
        
        Matriz Produto = new Matriz(mat.length, m.mat[0].length);
@@ -78,6 +98,7 @@ public class Matriz {
        
         return Produto;
         }
+    
 
     /**
      * Retorna uma representação textual da matriz.
